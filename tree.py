@@ -47,10 +47,12 @@ class Tree:
             if(current_node == None):
                 current_node = Node()
                 prev_node.next[self.get_index(ch)] = current_node
+        if(current_node.val == None):
+            self.size += 1
         current_node.val = value
 
     def remove(self, key):
-        self.root = self.delete_rec2(self.root, (ch for ch in key))
+        self.root = self.delete_rec(self.root, (ch for ch in key))
 
     def delete_rec(self, current_node, gen_key):
         if(current_node == None):
@@ -61,7 +63,7 @@ class Tree:
                 return current_node if current_node.val != None else None
             next_node = current_node.next
             ch_idx = self.get_index(ch)
-            next_node[ch_idx] = self.delete_rec2(next_node[ch_idx], gen_key)
+            next_node[ch_idx] = self.delete_rec(next_node[ch_idx], gen_key)
         except StopIteration:
             if current_node.val != None:
                 self.size -= 1
@@ -85,17 +87,4 @@ class Tree:
     def print_tree(self):
         self.root.print_subtree()
 
-if __name__ == "__main__" :
-    t = Tree()
-    #texto = "testando texto teste testa"
-    texto = "testando texto teste testa teste"
-
-    lista_texto = texto.split()
-
-    for idx, palavra in enumerate(lista_texto):
-            t.insert(palavra, idx)
-
-    t.remove2("testel")
-    print(t.search("testando"))
-    t.print_tree()
 
